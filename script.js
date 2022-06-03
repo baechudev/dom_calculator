@@ -23,21 +23,39 @@ var tempValue = '';
 var tempFinal = '';
 var toDo = '';
 
-// clear: to erase all input and display zero in the calculator.
-clear.addEventListener('click', function () {
+const arithmetic = (type) => {
+  if (toDo === '' && tempValue !== '') {
+    tempFinal = tempValue;
+    tempValue = '';
+    toDo = type;
+  }
+};
+
+const inputNumber = (num) => {
+  if (tempValue !== '0') {
+    tempValue += num;
+    value.innerHTML = tempValue;
+  } else {
+    tempValue = num;
+  }
+};
+
+// clearNumber: to erase all input and display zero in the calculator.
+const clearNumber = () => {
   tempValue = '';
   value.innerHTML = 0;
-});
+};
 
-// backspace: to get rid of the last digit in the number.
-backspace.addEventListener('click', function () {
+// deleteDigit: to get rid of the last digit in the number.
+const deleteDigit = () => {
   if (tempValue !== '' && tempValue !== '0') {
     tempValue = tempValue.substring(0, tempValue.length - 1);
     value.innerHTML = tempValue.length === 0 ? 0 : tempValue;
   }
-});
+};
 
-// division: to store the first entered number into tempFinal and get tempValue ready for the next number, and assign arithmetic to be used in equal to division.
+clear.addEventListener('click', clearNumber);
+backspace.addEventListener('click', deleteDigit);
 division.addEventListener('click', function () {
   arithmetic('division');
 });
@@ -120,20 +138,3 @@ nine.addEventListener('click', function () {
 zero.addEventListener('click', function () {
   inputNumber(0);
 });
-
-function arithmetic(type) {
-  if (toDo === '' && tempValue !== '') {
-    tempFinal = tempValue;
-    tempValue = '';
-    toDo = type;
-  }
-}
-
-function inputNumber(num) {
-  if (tempValue !== '0') {
-    tempValue += num;
-    value.innerHTML = tempValue;
-  } else {
-    tempValue = num;
-  }
-}
