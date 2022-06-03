@@ -80,7 +80,14 @@ addition.addEventListener('click', function () {
 enter.addEventListener('click', function () {
   if (toDo !== '') {
     if (toDo === 'division') {
-      tempFinal = Number(tempFinal) / Number(tempValue);
+      try {
+        if (tempValue === '0') {
+          throw new Error('Dividing by 0 is Impossible, Please click `Clear`');
+        }
+        tempFinal = Number(tempFinal) / Number(tempValue);
+      } catch (err) {
+        alert(err);
+      }
     } else if (toDo === 'multiple') {
       tempFinal = Number(tempFinal) * Number(tempValue);
     } else if (toDo === 'substraction') {
